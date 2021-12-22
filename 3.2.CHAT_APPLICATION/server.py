@@ -3,7 +3,7 @@
 import socket
 server_message = ""
 server_address = ("localhost", 1010)
-recv_port = 10102000
+recv_port = 1020
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server_socket.bind(server_address)
 server_socket.listen()

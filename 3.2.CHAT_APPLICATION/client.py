@@ -3,7 +3,7 @@
 import socket
 client_message = ""
 server_address = ("localhost", 1010)
-recv_port = 10102000
+recv_port = 1020
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(server_address)
 print("\nConnected to {}\n".format(server_address))
