@@ -1,0 +1,103 @@
+ECHO CLIENT - ECHO SERVER
+
+AIM:
+  To write and execute a program for echo client echo server application using TCP.
+
+ALGORITHM:
+
+  CLIENT:
+    1. Start.
+    2. Create socket.
+    3. Establish connection.
+    4. Get message.
+    5. Send message to the server.
+    6. Receive message from server.
+    7. Display message.
+    8. Stop.
+
+  SERVER:
+    1. Start.
+    2. Create socket.
+    3. Bind socket with IP and port.
+    4. Accept connection from client.
+    5. Receive message from the client.
+    6. Send message to the client.
+    7. Close connection.
+    8. Stop.
+
+PROGRAM:
+
+  CLIENT:
+    import socket
+    message = str(input("\nEnter the message...\n"))
+    address = ("localhost", 1010)
+    port = 10102000
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.connect(address)
+    s.send(message.encode("utf-8"))
+    print("\nMessage sent to server from client: {}".format(message))
+    print("Message received from server to client: {}\n".format(s.recv(port).decode("utf-8")))
+
+  SERVER:
+    import socket
+    address = ("localhost", 1010)
+    port = 10102000
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.bind(address)
+    s.listen()
+    print("\nWaiting for connection...")
+    client, client_address = s.accept()
+    print("\nConnection established on {}".format(client_address))
+    message = client.recv(port)
+    print("Message received from client to server: {}\n".format(message.decode("utf-8")))
+    client.send(message)
+
+OUTPUT:
+  >>>python3 server.py
+  >>>Waiting for connection...
+  >>>Connection established on 127.0.0.1
+  >>>Message received from client to server: HI
+  
+  >>>python3 client.py
+  >>>Enter the message:
+  >>>HI
+  >>>Message received from server to client: HI
+
+RESULT:
+  Thus the program for echo client echo server application using TCP was written and executed successfully and the output is verified.
+
+NETWORK COMMANDS: netstat and ifconfig
+
+AIM:
+  To study the working of networks commands such as netstat and ifconfig.
+
+COMMANDS:
+  netstat
+  ifconfig
+
+NETSTAT:
+  It is a command used to get information and statistics of protocols and TCP/IP connections in the system.
+
+IFCONFIG:
+  It is used to get the information of IP address of a system over the network.
+
+OUTPUT:
+  >>>netstat
+  Active Internet connections (w/o servers)
+  Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+  tcp        0      0 192.168.191.25:49130    lb-140-82-112-25-:https ESTABLISHED
+  tcp       32      0 192.168.191.25:38758    ec2-3-20-69-150.u:https CLOSE_WAIT 
+  tcp       32      0 192.168.191.25:33956    ec2-3-129-146-83.:https CLOSE_WAIT 
+  tcp        0      0 192.168.191.25:46592    server-108-159-10:https ESTABLISHED
+
+  >>>ifconfig
+  inet 127.0.0.1  netmask 255.0.0.0
+  inet6 ::1  prefixlen 128  scopeid 0x10<host>
+  loop  txqueuelen 1000  (Local Loopback)
+  RX packets 61  bytes 7306 (7.1 KiB)
+  RX errors 0  dropped 0  overruns 0  frame 0
+  TX packets 61  bytes 7306 (7.1 KiB)
+  TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+RESULT:
+  Thus the networks commands like netstat and ifconfig were studied and executed successfully.
