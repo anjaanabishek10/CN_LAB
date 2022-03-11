@@ -1,0 +1,67 @@
+WEB CLIENT
+
+AIM:
+  To write and execute a program to download a web page using TCP.
+
+ALGORITHM:
+  1. Start.
+  2. Create socket.
+  3. Get URL.
+  4. Request webpage using URL.
+  5. Display HTML code of webpage.
+  6. Stop.
+
+PROGRAM:
+  import socket
+  url = str(input("\nEnter the URL of the webpage...\n"))
+  port = 10102000
+  request = "GET / HTTP/1.1\r\nHOST: {}\r\n\r\n".format(url).encode("utf-8")
+  s = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
+  s.connect((url,80))
+  s.send(request)
+  print("\n{}".format(s.recv(port).decode("utf-8")))
+
+OUTPUT:
+  >>>python3 client.py
+  >>>Enter the URL of the webpage...
+  127.0.0.1
+  HTTP/1.1 302 Found
+  Date: Fri, 11 Mar 2022 15:42:17 GMT
+  Server: Apache/2.4.52 (Debian)
+  Location: /index2.html
+  Content-Length: 0
+  Content-Type: text/html; charset=UTF-8
+
+RESULT:
+  Thus the program to download a webpage using TCP was written and executed successfully and the output is verified.
+
+NETWORK COMMANDS: tcpdump and ping
+
+AIM:
+  To study the working of networks commands such as tcpdump and ping.
+
+COMMANDS:
+  tcpdump
+  ping
+
+TCPDUMP:
+  It is a command used to capture the packets that flows in your network. It is used in networking troubleshooting.
+
+PING:
+  It is used to check the availability of the host on network by sending ICMP echo request.
+
+OUTPUT:
+  >>>tcpdump
+  19:48:19.406296 IP 192.168.191.42.domain > 192.168.191.25.38914: 10565 NXDomain 0/1/0 (122)
+  19:48:19.407837 IP 192.168.191.25.59762 > 192.168.191.42.domain: 23926+ PTR? 42.191.168.192.in-addr.arpa. (45)
+  19:48:19.893874 IP 192.168.191.42.domain > 192.168.191.25.59762: 23926 NXDomain 0/1/0 (122)
+  
+  >>>ping google.com
+  PING google.com (142.250.67.46) 56(84) bytes of data.
+  64 bytes from maa05s12-in-f14.1e100.net (142.250.67.46): icmp_seq=1 ttl=116 time=20.7 ms
+  64 bytes from maa05s12-in-f14.1e100.net (142.250.67.46): icmp_seq=2 ttl=116 time=38.0 ms
+  64 bytes from maa05s12-in-f14.1e100.net (142.250.67.46): icmp_seq=3 ttl=116 time=36.9 ms
+  64 bytes from maa05s12-in-f14.1e100.net (142.250.67.46): icmp_seq=4 ttl=116 time=53.8 ms
+
+RESULT:
+  Thus the networks commands like tcpdump and ping were studied and executed successfully.
