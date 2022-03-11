@@ -1,0 +1,103 @@
+CHAT APPLIACTION
+
+AIM:
+  To write and execute a program for chat application using TCP.
+
+ALGORITHM:
+
+  CLIENT:
+    1. Start.
+    2. Create socket.
+    3. Establish connection.
+    4. Get message from user.
+    5. Send message to the server.
+    6. Receive message from the server.
+    7. Repeat 4, 5 and 6.
+    8. Stop.
+
+  SERVER:
+    1. Start.
+    2. Create socket.
+    3. Bind socket with IP and port.
+    4. Get message from user.
+    5. Receive message from the client.
+    6. Send message to the client.
+    7. Repeat 4, 5 and 6.
+    8. Stop.
+
+PROGRAM:
+
+  CLIENT:
+    import socket
+    client_message = ""
+    server_address = ("localhost", 1010)
+    recv_port = 1020
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client_socket.connect(server_address)
+    print("\nConnected to {}\n".format(server_address))
+    while client_message != "end":
+        client_message = str(input("Client: "))
+        client_socket.send(client_message.encode("utf-8"))
+        print("Server: {}".format(client_socket.recv(recv_port).decode("utf-8")))
+
+  SERVER:
+    import socket
+    server_message = ""
+    server_address = ("localhost", 1010)
+    recv_port = 1020
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.bind(server_address)
+    server_socket.listen()
+    print("\nWaiting for connection...")
+    client_socket, client_address = server_socket.accept()
+    print("\nConnected to {}\n".format(client_address))
+    while server_message != "end":
+        print("Client: {}".format(client_socket.recv(recv_port).decode("utf-8")))
+        server_message = str(input("Server: "))
+        client_socket.send(server_message.encode("utf-8"))
+
+OUTPUT:
+  >>>python3 server.py
+  >>>Waiting for connection...
+  >>>Client: HI
+  >>>Server: Hello
+  
+  >>>python3 client.py
+  >>>Client: HI
+  >>>Server: Hello
+
+RESULT:
+  Thus the program for chat application using TCP was written and executed successfully and the output is verified.
+
+NETWORK COMMANDS: tcpdump and ifconfig
+
+AIM:
+  To study the working of networks commands such as tcpdump and ifconfig.
+
+COMMANDS:
+  tcpdump
+  ifconfig
+
+TCPDUMP:
+  It is a command used to capture the packets that flows in your network. It is used in networking troubleshooting.
+
+IFCONFIG:
+  It is used to get the information of IP address of a system over the network.
+
+OUTPUT:
+  >>>tcpdump
+  19:48:19.406296 IP 192.168.191.42.domain > 192.168.191.25.38914: 10565 NXDomain 0/1/0 (122)
+  19:48:19.407837 IP 192.168.191.25.59762 > 192.168.191.42.domain: 23926+ PTR? 42.191.168.192.in-addr.arpa. (45)
+  19:48:19.893874 IP 192.168.191.42.domain > 192.168.191.25.59762: 23926 NXDomain 0/1/0 (122)
+
+  >>>ifconfig
+  inet 127.0.0.1  netmask 255.0.0.0
+  inet6 ::1  prefixlen 128  scopeid 0x10<host>
+  loop  txqueuelen 1000  (Local Loopback)
+  RX packets 61  bytes 7306 (7.1 KiB)
+  RX errors 0  dropped 0  overruns 0  frame 0
+  TX packets 61  bytes 7306 (7.1 KiB)
+  TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+RESULT:
+  Thus the networks commands like tcpdump and ifconfig were studied and executed successfully.
