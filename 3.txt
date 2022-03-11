@@ -1,0 +1,104 @@
+DNS
+
+AIM:
+  To write and execute a program for DNS application using UDP.
+
+ALGORITHM:
+
+  CLIENT:
+    1. Start.
+    2. Create socket.
+    3. Establish connection.
+    4. Get host name.
+    5. Send host name to the server.
+    6. Receive IP from the server.
+    7. Display IP address.
+    8. Stop.
+
+  SERVER:
+    1. Start.
+    2. Create socket.
+    3. Bind socket with IP and port.
+    4. Receive host name from the client.
+    5. Check DNS table.
+    6. Send IP address to the client.
+    7. Stop.
+
+PROGRAM:
+
+  CLIENT:
+    import socket
+    server_address = ("localhost", 1010)
+    recv_port = 1020
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    domain = str(input("Enter domain\n"))
+    client_socket.sendto(domain.encode("utf-8"),server_address)
+    ip_data, server_address = client_socket.recvfrom(recv_port)
+    ip_data = ip_data.decode("utf-8")
+    print(ip_data)
+
+  SERVER:
+    import socket
+    ip_table = {"www.google.com" : "1.1.1.1", "www.youtube.com" : "1.1.1.2", "www.gmail.com" : "1.1.1.3", "www.amazon.com" : "1.1.1.4", "www.flipkart.com" : "1.1.1.5", "www.facebook.com" : "1.1.1.6"}
+    server_address = ("localhost", 1010)
+    recv_port = 1020
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    server_socket.bind(server_address)
+    print("\nWaiting for connection...")
+    client_data, client_address = server_socket.recvfrom(recv_port)
+    print("\nGot IP request from {}\n".format(client_address))
+    data = client_data.decode("utf-8")
+    domain_ip = ip_table.get(data, "Given Domain not found in our DNS Table").encode("utf-8")
+    server_socket.sendto(domain_ip, client_address)
+
+OUTPUT:
+  >>>python3 server.py
+  >>>Waiting for connection...
+  >>>Got IP request from 127.0.0.1
+  
+  >>>python3 client.py
+  >>>Enter domain
+  >>>www.google.com
+  >>>1.1.1.1
+
+RESULT:
+  Thus the program for DNS application was written and executed successfully and the output is verified.
+
+NETWORK COMMANDS: traceroute and ping
+
+AIM:
+  To study the working of networks commands such as traceroute and ping.
+
+COMMANDS:
+  traceroute
+  ping
+
+TRACEROUTE:
+  It is a command used to track the path of packet that travelled through the network. It is used in network diagnosis.
+
+PING:
+  It is used to check the availability of the host on network by sending ICMP echo request.
+
+OUTPUT:
+  >>>traceroute google.com
+  traceroute to google.com (142.250.67.46), 30 hops max, 60 byte packets
+  1  192.168.191.42 (192.168.191.42)  3.045 ms  2.950 ms  3.031 ms
+  2  * * *
+  3  * * *
+  4  10.50.221.42 (10.50.221.42)  34.041 ms  34.074 ms  33.880 ms
+  5  61.246.168.117 (61.246.168.117)  34.244 ms  34.330 ms  34.488 ms
+  6  182.79.198.2 (182.79.198.2)  34.524 ms *  35.984 ms
+  7  72.14.208.234 (72.14.208.234)  33.565 ms  20.819 ms  30.627 ms
+  8  * * *
+  9  142.251.55.228 (142.251.55.228)  30.442 ms 108.170.253.97 (108.170.253.97)  32.230 ms 142.251.55.206 (142.251.55.206)  28.668 ms
+  10  142.250.228.83 (142.250.228.83)  36.756 ms  29.159 ms 142.250.228.81 (142.250.228.81)  54.609 ms
+
+  >>>ping google.com
+  PING google.com (142.250.67.46) 56(84) bytes of data.
+  64 bytes from maa05s12-in-f14.1e100.net (142.250.67.46): icmp_seq=1 ttl=116 time=20.7 ms
+  64 bytes from maa05s12-in-f14.1e100.net (142.250.67.46): icmp_seq=2 ttl=116 time=38.0 ms
+  64 bytes from maa05s12-in-f14.1e100.net (142.250.67.46): icmp_seq=3 ttl=116 time=36.9 ms
+  64 bytes from maa05s12-in-f14.1e100.net (142.250.67.46): icmp_seq=4 ttl=116 time=53.8 ms
+
+RESULT:
+  Thus the networks commands like traceroute and ping were studied and executed successfully.
