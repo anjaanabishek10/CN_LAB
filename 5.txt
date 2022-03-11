@@ -72,7 +72,7 @@ RESULT:
 NETWORK COMMANDS: netstat and ping
 
 AIM:
-  To study the working of networks commands such as tcpdump and ping.
+  To study the working of networks commands such as netstat and ping.
 
 COMMANDS:
   netstat
