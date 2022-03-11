@@ -1,0 +1,126 @@
+FILE TRANSFER
+
+AIM:
+  To write and execute a program for file transfer application using TCP.
+
+ALGORITHM:
+
+  CLIENT:
+    1. Start.
+    2. Create socket.
+    3. Establish connection.
+    4. Get file name.
+    5. Send file name to server.
+    6. Receive file from the server.
+    7. Save file.
+    8. Stop.
+
+  SERVER:
+    1. Start.
+    2. Create Socket.
+    3. Bind socket with IP and port.
+    4. Receive file name from client.
+    5. Check file.
+    6. Send file to client.
+    7. Stop.
+
+PROGRAM:
+
+  CLIENT:
+    import socket
+    server_address = ("localhost", 1010)
+    recv_port = 1020
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client_socket.connect(server_address)
+    print("\nConnected to {}\n".format(server_address))
+    file_name = str(input("Enter file name\n"))
+    client_socket.send(file_name.encode("utf-8"))
+    data = client_socket.recv(recv_port).decode("utf-8")
+    if data != "0":
+      print("\nReceiving file from server...")
+      file = open("client.txt", "w")
+      file.write(data)
+      file.close()
+      print("\nFile received from server")
+    else:
+      print("\nNo such file exist")
+
+  SERVER:
+    import os
+    import socket
+    server_address = ("localhost", 1010)
+    recv_port = 1020
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.bind(server_address)
+    server_socket.listen()
+    print("\nWaiting for connection...")
+    client_socket, client_address = server_socket.accept()
+    print("\nConnected to {}\n".format(client_address))
+    file_name = client_socket.recv(recv_port).decode("utf-8")
+    check = str(os.path.exists(file_name))
+    if check == "True":
+        print("Transfering file to client...\n")
+        file = open(file_name, "r")
+        data = file.read()
+        client_socket.send(data.encode("utf-8"))
+        file.close()
+        print("Transfering completed")
+    else:
+        client_socket.send("0".encode("utf-8"))
+        print("\nNo such file exist")
+
+OUTPUT:
+  >>>python3 server.py
+  >>>Waiting for connection...
+  >>>Connected to 127.0.0.1
+  
+  >>>python3 client.py
+  >>>Connected to 127.0.0.1
+  >>>Enter file name
+  >>>server.txt
+  >>>Receivibg file from server
+  >>>File received from server
+
+RESULT:
+  Thus the program for file transfer application using TCP was written and executed successfully and the output is verified.
+
+NETWORK COMMANDS: traceroute and ifconfig
+
+AIM:
+  To study the working of networks commands such as traceroute and ifconfig.
+
+COMMANDS:
+  traceroute
+  ifconfig
+
+TRACEROUTE:
+  It is a command used to track the path of packet that travelled through the network. It is used in network diagnosis.
+
+ifconfig:
+  It is used to get the information of IP address of a system over the network.
+
+OUTPUT:
+  >>>traceroute google.com
+  traceroute to google.com (142.250.67.46), 30 hops max, 60 byte packets
+  1  192.168.191.42 (192.168.191.42)  3.045 ms  2.950 ms  3.031 ms
+  2  * * *
+  3  * * *
+  4  10.50.221.42 (10.50.221.42)  34.041 ms  34.074 ms  33.880 ms
+  5  61.246.168.117 (61.246.168.117)  34.244 ms  34.330 ms  34.488 ms
+  6  182.79.198.2 (182.79.198.2)  34.524 ms *  35.984 ms
+  7  72.14.208.234 (72.14.208.234)  33.565 ms  20.819 ms  30.627 ms
+  8  * * *
+  9  142.251.55.228 (142.251.55.228)  30.442 ms 108.170.253.97 (108.170.253.97)  32.230 ms 142.251.55.206 (142.251.55.206)  28.668 ms
+  10  142.250.228.83 (142.250.228.83)  36.756 ms  29.159 ms 142.250.228.81 (142.250.228.81)  54.609 ms
+
+  >>>ifconfig
+  inet 127.0.0.1  netmask 255.0.0.0
+  inet6 ::1  prefixlen 128  scopeid 0x10<host>
+  loop  txqueuelen 1000  (Local Loopback)
+  RX packets 61  bytes 7306 (7.1 KiB)
+  RX errors 0  dropped 0  overruns 0  frame 0
+  TX packets 61  bytes 7306 (7.1 KiB)
+  TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+RESULT:
+  Thus the networks commands like traceroute and ifconfig were studied and executed successfully.
