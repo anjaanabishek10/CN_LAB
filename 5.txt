@@ -1,0 +1,104 @@
+ARP
+
+AIM:
+  To write and execute a program for simulating ARP protocol using TCP.
+
+ALGORITHM:
+
+  CLIENT:
+    1. Start.
+    2. Create socket.
+    3. Establish connection.
+    4. Get IP address.
+    5. Send IP address to the server.
+    6. Receive MAC address from server.
+    7. Display the MAC address.
+    8. Stop.
+
+  SERVER:
+    1. Start.
+    2. Create socket.
+    3. Bind socket with IP and port.
+    4. Accept connection from client.
+    5. Receive IP address from the client.
+    6. Check MAC table.
+    7. Send MAC address to the client.
+    8. Close connection.
+    9. Stop.
+
+PROGRAM:
+
+  CLIENT:
+    import socket
+    server_address = ("localhost", 1010)
+    recv_port = 1020
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client_socket.connect(server_address)
+    print("\nConnected to {}\n".format(server_address))
+    user_data = input("Enter IP\n")
+    client_socket.send(user_data.encode("utf-8"))
+    data = client_socket.recv(recv_port).decode("utf-8")
+    print(data)
+
+  SERVER:
+    import socket
+    arp_table = {"1.1.1.1" : "aa:aa:aa:aa:aa:aa", "2.2.2.2" : "bb:bb:bb:bb:bb:bb", "3.3.3.3" : "cc:cc:cc:cc:cc:cc"}
+    server_address = ("localhost", 1010)
+    recv_port = 1020
+    server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server_socket.bind(server_address)
+    server_socket.listen()
+    print("\nWaiting for connection...")
+    client_socket, client_address = server_socket.accept()
+    print("\nGot request from {}\n".format(client_address))
+    data = client_socket.recv(recv_port).decode("utf-8")
+    return_data = arp_table.get(data, "Given IP not found.")
+    client_socket.send(return_data.encode("utf-8"))
+
+OUTPUT:
+  >>>python3 server.py
+  >>>Waiting for connection...
+  >>>Got request from 127.0.0.1
+  
+  >>>python3 client.py
+  >>>Connected to 127.0.0.1
+  >>>Enter IP
+  >>>1.1.1.1
+  >>>aa:aa:aa:aa:aa:aa
+
+RESULT:
+  Thus the program to simulate ARP protocol was written and executed successfully and the output is verified.
+  
+NETWORK COMMANDS: netstat and ping
+
+AIM:
+  To study the working of networks commands such as tcpdump and ping.
+
+COMMANDS:
+  netstat
+  ping
+
+NETSTAT:
+  It is a command used to get information and statistics of protocols and TCP/IP connections in the system.
+
+PING:
+  It is used to check the availability of the host on network by sending ICMP echo request.
+
+OUTPUT:
+  >>>netstat
+  Active Internet connections (w/o servers)
+  Proto Recv-Q Send-Q Local Address           Foreign Address         State      
+  tcp        0      0 192.168.191.25:49130    lb-140-82-112-25-:https ESTABLISHED
+  tcp       32      0 192.168.191.25:38758    ec2-3-20-69-150.u:https CLOSE_WAIT 
+  tcp       32      0 192.168.191.25:33956    ec2-3-129-146-83.:https CLOSE_WAIT 
+  tcp        0      0 192.168.191.25:46592    server-108-159-10:https ESTABLISHED
+
+  >>>ping google.com
+  PING google.com (142.250.67.46) 56(84) bytes of data.
+  64 bytes from maa05s12-in-f14.1e100.net (142.250.67.46): icmp_seq=1 ttl=116 time=20.7 ms
+  64 bytes from maa05s12-in-f14.1e100.net (142.250.67.46): icmp_seq=2 ttl=116 time=38.0 ms
+  64 bytes from maa05s12-in-f14.1e100.net (142.250.67.46): icmp_seq=3 ttl=116 time=36.9 ms
+  64 bytes from maa05s12-in-f14.1e100.net (142.250.67.46): icmp_seq=4 ttl=116 time=53.8 ms
+
+RESULT:
+  Thus the networks commands like netstat and ping were studied and executed successfully.
