@@ -96,7 +96,7 @@ COMMANDS:
 TRACEROUTE:
   It is a command used to track the path of packet that travelled through the network. It is used in network diagnosis.
 
-ifconfig:
+IFCONFIG:
   It is used to get the information of IP address of a system over the network.
 
 OUTPUT:
